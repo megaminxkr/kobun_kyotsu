@@ -46,6 +46,7 @@ dialog.addEventListener('click',ev=>{if(ev.target===dialog){const r=dialog.getBo
 input.addEventListener('input',search);
 input.addEventListener('keydown',ev=>{if(ev.key==='ArrowDown'){$('.search-result')?.focus();ev.preventDefault();}});
 document.addEventListener('keydown',ev=>{
+ if(ev.key==='Escape'&&dialog.open){ev.preventDefault();dialog.close();return;}
  if(ev.key==='/'&&!ev.ctrlKey&&!ev.metaKey&&!ev.altKey&&!dialog.open&&!ev.target.closest('input,textarea,[contenteditable="true"]')){ev.preventDefault();openSearch();}
  if(document.body.classList.contains('menu-open')){if(ev.key==='Escape'){setMenu(false);menu.focus();}if(ev.key==='Tab'){const links=[...sidebar.querySelectorAll('a')];const first=links[0],last=links.at(-1);if(ev.shiftKey&&document.activeElement===first){last.focus();ev.preventDefault();}else if(!ev.shiftKey&&document.activeElement===last){first.focus();ev.preventDefault();}}}
 });
