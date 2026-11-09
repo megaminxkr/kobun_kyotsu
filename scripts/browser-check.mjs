@@ -27,7 +27,7 @@ try{
   await page.waitForURL('**/04.html');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`table overflow ${width}`);
   await page.goto(base+'lessons/16.html');await page.locator('[data-check="0"]').check();await page.reload();assert.ok(await page.locator('[data-check="0"]').isChecked());
   await page.locator('.search-open').click();await page.locator('#search-input').fill('<img src=x onerror=alert(1)>');await page.locator('#search-status').filter({hasText:'見つかりませんでした'}).waitFor();assert.equal(await page.locator('#search-results img').count(),0);
-  await page.locator('#search-input').press('Escape');await page.locator('dialog').waitFor({state:'hidden'});assert.equal(await page.locator('dialog').isVisible(),false);
+  await page.locator('#search-input').press('Escape');await page.locator('#search-dialog').waitFor({state:'hidden'});assert.equal(await page.locator('#search-dialog').isVisible(),false);
   assert.deepEqual(errors,[],`JS errors at ${width}`);await context.close();cases++;console.log(`PASS viewport ${width}: search, deep-link, saved state, filters, theme, navigation, table overflow, checklist, escaping, Escape`);
  }
  const blocked=await browser.newContext();await blocked.addInitScript(()=>{Storage.prototype.setItem=function(){throw new DOMException('Blocked','SecurityError');};});
